@@ -104,12 +104,12 @@ export type TDiscoverMovies = {
 // TRENDING MOVIES RESPONSE DATA
 export type TTrendingMoviesResponse = {
   page: number;
-  results: TrendingMovies[];
+  results: TrendingMovie[];
   total_pages: number;
   total_results: number;
 };
 
-export type TrendingMovies = {
+export type TrendingMovie = {
   backdrop_path: string;
   id: number;
   original_title: string;

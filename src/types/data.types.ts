@@ -12,8 +12,8 @@ export type TLCRequestToken = {
 
 // =================== NAVIGATION ====================
 export type TPageWiseNavigationActions = {
-  moviesDetailPage: 'adding_movie_to_watchlist' | 'adding_movie_to_favorites';
-  trendingMoviesPage: 'viewing_a_movie';
+  moviesDetailPage: 'adding_movie_to_watchlist' | 'adding_movie_to_favorites' | 'null';
+  trendingMoviesPage: 'viewing_a_movie' | 'null';
 };
 
 export type TNavigationPagesKey = keyof TPageWiseNavigationActions;

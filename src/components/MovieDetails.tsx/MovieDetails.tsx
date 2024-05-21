@@ -4,15 +4,18 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import {
   ActionIcon,
+  Affix,
   BackgroundImage,
   Badge,
   Box,
+  Button,
   Card,
   Group,
   Image,
   // JsonInput,
   Text,
   Tooltip,
+  Transition,
 } from '@mantine/core';
 import {
   TbStarFilled,
@@ -23,14 +26,18 @@ import {
   TbHeart,
   TbHeartFilled,
   TbPlaylist,
+  TbArrowLeft,
+  TbLogin,
 } from 'react-icons/tb';
 import toast from 'react-hot-toast';
 import _ from 'lodash';
+import { useWindowScroll } from '@mantine/hooks';
 import tmdbServices from '@/services/tmdbServices';
 import tmdbApiConstants from '@/constants/tmdbApi.constants';
 import useRedirection from '@/hooks/useRedirection';
 import { TPageWiseNavigationActions } from '@/types/data.types';
 import useAppStore from '@/setup/zustand/app.store';
+import useUserStore from '@/setup/zustand/user.store';
 
 const MovieDetailsLoader = () => (
   <Box className="p-2">
@@ -40,24 +47,38 @@ const MovieDetailsLoader = () => (
         <Skeleton className="w-full h-full" />
       </div>
     </div>
-    <div className="flex items-center gap-x-6 mt-11">
+    <div className="flex items-center gap-x-6 mt-3">
       <div className="w-64 flex-grow-0"></div>
-      <div className="flex-grow h-14">
-        <Skeleton className="w-full h-full" />
+      <div className="flex-grow flex flex-col gap-y-2">
+        <Skeleton className="w-1/2 h-10" />
+        <Group gap="md">
+          <Skeleton className="w-24 h-5 rounded-full" />
+          <Skeleton className="w-24 h-5 rounded-full" />
+          <Skeleton className="w-24 h-5 rounded-full" />
+        </Group>
+        <Skeleton className="w-full h-20" />
       </div>
     </div>
-    <div className="flex-grow h-14 mt-16">
-      <Skeleton className="w-full h-full" />
+    <div className="mt-12 px-2">
+      <Skeleton className="w-1/6 h-8" />
+      <div className="flex justify-start items-center py-4 gap-x-3 overflow-x-auto no-scrollbar">
+        {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
+        {new Array(Math.ceil(window.innerWidth / 208)).fill(0).map((_, index) => (
+          <Skeleton key={index} className="w-52 h-32" />
+        ))}
+      </div>
     </div>
   </Box>
 );
 
 const MovieDetails = () => {
-  const { checkSessionOrAuthenticate, location } = useRedirection<'moviesDetailPage'>();
+  const { checkSessionOrAuthenticate, location, navigate } = useRedirection<'moviesDetailPage'>();
 
   const { movieId } = useParams<{ movieId: string }>();
 
   const [, setSearchParams] = useSearchParams();
+
+  const [scroll] = useWindowScroll();
 
   const { toggleFavorite, toggleWatchlist, isInFavorite, isInWatchlist } = useAppStore((state) => ({
     isInFavorite: state.isInFavorite,
@@ -65,6 +86,8 @@ const MovieDetails = () => {
     isInWatchlist: state.isInWatchlist,
     toggleWatchlist: state.toggleWatchlist,
   }));
+
+  const sessionId = useUserStore((state) => state.sessionId);
 
   const isFavoriteMovie = isInFavorite(+movieId!);
   const isWatchlistMovie = isInWatchlist(+movieId!);
@@ -277,6 +300,39 @@ const MovieDetails = () => {
                 ))}
             </div>
           </Card>
+
+          {/* Affix */}
+          <Affix position={{ top: 20, right: 20 }}>
+            <Transition transition="slide-up" mounted={scroll.y >= 0}>
+              {(transitionStyles) => (
+                <Button
+                  style={transitionStyles}
+                  color="gray"
+                  leftSection={<TbArrowLeft />}
+                  onClick={() => navigate(-1)}
+                >
+                  Back To Trending
+                </Button>
+              )}
+            </Transition>
+          </Affix>
+
+          {sessionId === null && (
+            <Affix position={{ top: 20, left: 20 }}>
+              <Transition transition="slide-up" mounted={scroll.y >= 0}>
+                {(transitionStyles) => (
+                  <Button
+                    style={transitionStyles}
+                    color="green"
+                    leftSection={<TbLogin />}
+                    onClick={() => checkSessionOrAuthenticate('null')}
+                  >
+                    Login
+                  </Button>
+                )}
+              </Transition>
+            </Affix>
+          )}
         </Box>
       )}
     </SkeletonTheme>
