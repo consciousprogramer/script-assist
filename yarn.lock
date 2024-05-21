@@ -1593,15 +1593,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0-rc.0":
-  version: 7.24.5
-  resolution: "@babel/runtime@npm:7.24.5"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/05730e43e8ba6550eae9fd4fb5e7d9d3cb91140379425abcb2a1ff9cebad518a280d82c4c4b0f57ada26a863106ac54a748d90c775790c0e2cd0ddd85ccdf346
-  languageName: node
-  linkType: hard
-
 "@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.23.2
   resolution: "@babel/runtime@npm:7.23.2"
@@ -4896,15 +4887,6 @@ __metadata:
   dependencies:
     "@types/react": "npm:*"
   checksum: 10c0/a887b4b647071df48173f054854713b68fdacfceeba7fa14f64ba26688d7d43574d7dc88a2a346e28f2e667eeab1b9bdbcad8a54353869835e52638607f61ff5
-  languageName: node
-  linkType: hard
-
-"@types/react-json-editor-ajrm@npm:^2":
-  version: 2.5.6
-  resolution: "@types/react-json-editor-ajrm@npm:2.5.6"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/4ea04a01639a0cbf2b06fdf4cac8a491602e9f0a4c57b71b77f2fedfc908d8f21cc53d6b8747cb4fadc84cade275e52bd8304c5da63b8ae229a22ac506111412
   languageName: node
   linkType: hard
 
@@ -9669,18 +9651,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsoneditor-react@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "jsoneditor-react@npm:3.1.2"
-  dependencies:
-    prop-types: "npm:^15.7.2"
-  peerDependencies:
-    jsoneditor: ^7.0.0 || ^8.0.0 || ^9.0.0
-    react: 16 || 17
-  checksum: 10c0/08e6059dfedee25b820a77c8f56ce4ee7c32099b41bfa27d79fe87cf5be537906af9c23b7c120f8c3e86663b1ddd4aaa09d779544332dae3a6f1b7ce0eb796f6
-  languageName: node
-  linkType: hard
-
 "jsonfile@npm:^6.0.1":
   version: 6.1.0
   resolution: "jsonfile@npm:6.1.0"
@@ -10008,7 +9978,6 @@ __metadata:
     "@types/lodash": "npm:^4.17.4"
     "@types/react": "npm:^18.2.65"
     "@types/react-dom": "npm:^18.2.21"
-    "@types/react-json-editor-ajrm": "npm:^2"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@vitejs/plugin-react": "npm:^4.2.1"
@@ -10025,7 +9994,6 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     identity-obj-proxy: "npm:^3.0.0"
     jsdom: "npm:^24.0.0"
-    jsoneditor-react: "npm:^3.1.2"
     lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.38"
     postcss-preset-mantine: "npm:1.15.0"
@@ -10036,7 +10004,6 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-hot-toast: "npm:^2.4.1"
     react-icons: "npm:^5.2.1"
-    react-json-editor-ajrm: "npm:^2.5.14"
     react-loading-skeleton: "npm:^3.4.0"
     react-router-dom: "npm:^6.22.3"
     storybook: "npm:^8.0.0"
@@ -11591,18 +11558,6 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: 10c0/6eb5e4b28028c23e2bfcf73371e72cd4162e4ac7ab445ddae2afe24e347a37d6dc22fae6e1748632cd43c6d4f9b8f86dcf26bf9275e1874f436d129952528ae0
-  languageName: node
-  linkType: hard
-
-"react-json-editor-ajrm@npm:^2.5.14":
-  version: 2.5.14
-  resolution: "react-json-editor-ajrm@npm:2.5.14"
-  dependencies:
-    "@babel/runtime": "npm:^7.0.0-rc.0"
-  peerDependencies:
-    react: ">=16.2.0"
-    react-dom: ">=16.2.0"
-  checksum: 10c0/872ef9b1712d3115e69c35491871a02019a7467a59616585a8e1e2c396e635ab651c474b92a77ca03b016fa4131bceb0c607270685178c9b6f4bef75bf7628a3
   languageName: node
   linkType: hard
 
