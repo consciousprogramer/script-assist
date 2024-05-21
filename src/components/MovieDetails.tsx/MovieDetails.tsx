@@ -114,7 +114,7 @@ const MovieDetails = () => {
                     }
                   }}
                 >
-                  Back
+                  Back to Trending
                 </Button>
               )}
             </Transition>
