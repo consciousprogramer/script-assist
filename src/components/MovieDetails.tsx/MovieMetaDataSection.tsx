@@ -30,7 +30,7 @@ const MovieMetaDataSection = ({
     () => [
       {
         key: 'vote_average',
-        value: `${data.vote_average.toFixed(1)} (${data.vote_count} votes)`,
+        value: `${+data.vote_average.toFixed(1)} (${data.vote_count} votes)`,
         props: {
           color: 'yellow',
           variant: 'light',

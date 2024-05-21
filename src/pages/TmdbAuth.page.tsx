@@ -10,7 +10,7 @@ import tmdbServices from '@/services/tmdbServices';
 import useUserStore from '@/setup/store/user.store';
 import useRedirection from '@/hooks/common/useRedirection';
 import useAppStore from '@/setup/store/app.store';
-import { fetchUserFavoritesAndWatchlist } from '@/utils/api.utils';
+import { fetchUserFavoritesAndWatchlist, tmdbAuthPathConstructors } from '@/utils/api.utils';
 
 const TmdbAuthPage = () => {
   const { setSessionId, sessionId } = useUserStore();
@@ -35,7 +35,7 @@ const TmdbAuthPage = () => {
 
     setLocalStorage('requestToken', { token: request_token, expiresAt: expires_at });
 
-    const authUrl = tmdbServices.constructUrl.tmdbAuthUrl(request_token);
+    const authUrl = tmdbAuthPathConstructors(request_token);
 
     authUrl.searchParams.set(
       'redirect_to',

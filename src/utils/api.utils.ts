@@ -1,3 +1,4 @@
+import tmdbApiConstants from '@/constants/tmdbApi.constants';
 import tmdbServices from '@/services/tmdbServices';
 import { TFavoriteMoviesResponse, TWatchListMoviesResponse } from '@/types/tmdbApi.types';
 
@@ -84,3 +85,34 @@ export const fetchUserFavoritesAndWatchlist = async () => {
     allWatchlistIds,
   };
 };
+
+export const tmdbImagePathConstructors = {
+  postImagePaths: {
+    w342: (imgPath: string) => `${tmdbApiConstants.images.base_url}w300${imgPath}`,
+    w500: (imgPath: string) => `${tmdbApiConstants.images.base_url}w500${imgPath}`,
+    w780: (imgPath: string) => `${tmdbApiConstants.images.base_url}w780${imgPath}`,
+    w1280: (imgPath: string) => `${tmdbApiConstants.images.base_url}w1280${imgPath}`,
+    original: (imgPath: string) => `${tmdbApiConstants.images.base_url}original${imgPath}`,
+  },
+  profileImagePaths: {
+    w45: (imgPath: string) => `${tmdbApiConstants.images.base_url}w45${imgPath}`,
+    w185: (imgPath: string) => `${tmdbApiConstants.images.base_url}w185${imgPath}`,
+    h632: (imgPath: string) => `${tmdbApiConstants.images.base_url}h632${imgPath}`,
+    original: (imgPath: string) => `${tmdbApiConstants.images.base_url}original${imgPath}`,
+  },
+  stillImagePaths: {
+    w92: (imgPath: string) => `${tmdbApiConstants.images.base_url}w92${imgPath}`,
+    w185: (imgPath: string) => `${tmdbApiConstants.images.base_url}w185${imgPath}`,
+    w300: (imgPath: string) => `${tmdbApiConstants.images.base_url}w300${imgPath}`,
+    original: (imgPath: string) => `${tmdbApiConstants.images.base_url}original${imgPath}`,
+  },
+  backdropImagePaths: {
+    w300: (imgPath: string) => `${tmdbApiConstants.images.base_url}w300${imgPath}`,
+    w780: (imgPath: string) => `${tmdbApiConstants.images.base_url}w780${imgPath}`,
+    w1280: (imgPath: string) => `${tmdbApiConstants.images.base_url}w1280${imgPath}`,
+    original: (imgPath: string) => `${tmdbApiConstants.images.base_url}original${imgPath}`,
+  },
+};
+
+export const tmdbAuthPathConstructors = (requestToken: string) =>
+  new URL(`https://www.themoviedb.org/authenticate/${requestToken}`);

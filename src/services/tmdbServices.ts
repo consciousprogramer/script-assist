@@ -15,10 +15,6 @@ import { tmdbAxios } from '../setup/axios/axios.setup';
 import tmdbApiConstants from '@/constants/tmdbApi.constants';
 
 const tmdbServices = {
-  constructUrl: {
-    tmdbAuthUrl: (requestToken: string) =>
-      new URL(`https://www.themoviedb.org/authenticate/${requestToken}`),
-  },
   authentication: {
     getRequestToken: async () => {
       const { data } = await tmdbAxios.get<TRequestTokenResponse>('authentication/token/new');

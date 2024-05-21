@@ -1,8 +1,8 @@
 import { Image } from '@mantine/core';
 import React from 'react';
-import tmdbApiConstants from '@/constants/tmdbApi.constants';
 import { TMovieImagesResponse } from '@/types/tmdbApi.types';
 import SimpleImagesGallery from '../common/SimpleImagesGallery';
+import { tmdbImagePathConstructors } from '@/utils/api.utils';
 
 const MovieImages = ({ images }: { images: TMovieImagesResponse }) => (
   <SimpleImagesGallery
@@ -11,7 +11,7 @@ const MovieImages = ({ images }: { images: TMovieImagesResponse }) => (
     renderer={(item) => (
       <Image
         key={item.file_path}
-        src={tmdbApiConstants.w500Image(item.file_path)}
+        src={tmdbImagePathConstructors.stillImagePaths.w300(item.file_path)}
         radius="md"
         className="w-52"
       />

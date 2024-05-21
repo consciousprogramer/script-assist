@@ -1,12 +1,16 @@
 const tmdbApiConstants = {
-  baseUrl: 'https://api.themoviedb.org/3',
-  apiKey: 'ed73c56f8a7227e3bb6f82da54e5c7e7',
-  accountId: 9665025,
-  authToken:
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZDczYzU2ZjhhNzIyN2UzYmI2ZjgyZGE1NGU1YzdlNyIsInN1YiI6IjVmNjFkNzljMTU2Y2M3MDAzNmRmNGVlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Nzo5C8jtlNHmk3psYbRhszawUhc4WukTNMvh3wRXrUk',
-  originalImage: (imgPath: string) => `https://image.tmdb.org/t/p/original/${imgPath}`,
-  w500Image: (imgPath: string) => `https://image.tmdb.org/t/p/w500/${imgPath}`,
-  w300Image: (imgPath: string) => `https://image.tmdb.org/t/p/w300/${imgPath}`,
+  baseUrl: 'https://api.themoviedb.org/3/',
+  apiKey: import.meta.env.VITE_API_KEY,
+  accountId: import.meta.env.VITE_ACCOUNT_ID,
+  images: {
+    base_url: 'http://image.tmdb.org/t/p/',
+    secure_base_url: 'https://image.tmdb.org/t/p/',
+    backdrop_sizes: ['w300', 'w780', 'w1280', 'original'],
+    logo_sizes: ['w45', 'w92', 'w154', 'w185', 'w300', 'w500', 'original'],
+    poster_sizes: ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'],
+    profile_sizes: ['w45', 'w185', 'h632', 'original'],
+    still_sizes: ['w92', 'w185', 'w300', 'original'],
+  },
 };
 
 export default tmdbApiConstants;

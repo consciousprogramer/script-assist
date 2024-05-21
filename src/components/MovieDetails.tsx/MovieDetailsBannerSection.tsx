@@ -1,9 +1,9 @@
 import { BackgroundImage, Badge, Group, Image } from '@mantine/core';
 import React, { useMemo } from 'react';
 import { TbClock } from 'react-icons/tb';
-import tmdbApiConstants from '@/constants/tmdbApi.constants';
 import { TMovieDetailsResponse } from '@/types/tmdbApi.types';
 import { TBadgesRenderingData } from '@/types/ui.types';
+import { tmdbImagePathConstructors } from '@/utils/api.utils';
 
 const MovieDetailsBannerSection = ({ data }: { data: TMovieDetailsResponse }) => {
   const badgesData: TBadgesRenderingData<TMovieDetailsResponse> = useMemo(
@@ -32,13 +32,13 @@ const MovieDetailsBannerSection = ({ data }: { data: TMovieDetailsResponse }) =>
     <div className="w-full h-[500px] relative">
       <BackgroundImage
         className="w-full h-full relative"
-        src={tmdbApiConstants.originalImage(data.backdrop_path)}
+        src={tmdbImagePathConstructors.backdropImagePaths.original(data.backdrop_path)}
       />
       <div className="absolute bottom-0 left-0 translate-x-1/3 translate-y-1/2 w-48 aspect-[2/3] z-10">
         <Image
           className="w-full h-full"
           radius="md"
-          src={tmdbApiConstants.w500Image(data.poster_path)}
+          src={tmdbImagePathConstructors.postImagePaths.w500(data.poster_path)}
         />
         <Group className="mt-3" justify="center">
           {badgesData.map(({ key, value, props }) => (

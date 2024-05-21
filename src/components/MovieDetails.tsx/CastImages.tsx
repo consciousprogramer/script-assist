@@ -2,12 +2,12 @@ import { BackgroundImage, Text } from '@mantine/core';
 import React from 'react';
 import SimpleImagesGallery from '../common/SimpleImagesGallery';
 import { CreditsPerson, TMovieCreditsResponse } from '@/types/tmdbApi.types';
-import tmdbApiConstants from '@/constants/tmdbApi.constants';
+import { tmdbImagePathConstructors } from '@/utils/api.utils';
 
 const CastImage = ({ cast }: { cast: CreditsPerson }) => (
   <BackgroundImage
     key={cast.id}
-    src={tmdbApiConstants.w300Image(cast.profile_path!)}
+    src={tmdbImagePathConstructors.profileImagePaths.h632(cast.profile_path!)}
     className="w-32 relative aspect-[2/3] flex-shrink-0 group z-20 rounded-md"
   >
     <div className="absolute inset-0 group-hover:bg-black/50 z-0 transition-colors rounded-md"></div>
@@ -23,7 +23,7 @@ const CastImages = ({ data }: { data: TMovieCreditsResponse }) => (
   <SimpleImagesGallery
     title="Cast Images"
     data={data.cast}
-    renderer={(cast) => <CastImage cast={cast} />}
+    renderer={(cast) => <CastImage key={cast.id} cast={cast} />}
   />
 );
 
