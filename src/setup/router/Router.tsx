@@ -1,6 +1,7 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useRef } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Text } from '@mantine/core';
 import TrendingPage from '../../pages/Trending.page';
 import MovieDetails from '../../components/MovieDetails.tsx/MovieDetails';
 import TmdbAuthPage from '@/pages/TmdbAuth.page';
@@ -8,6 +9,10 @@ import useAppStore from '../store/app.store';
 import useMyLocalStorage from '@/hooks/common/useMyLocalStorage';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to="/movies/trending" replace />,
+  },
   {
     path: '/movies/',
     children: [
@@ -29,6 +34,10 @@ const router = createBrowserRouter([
         element: <TmdbAuthPage />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Text component="h2">Page Not Found!</Text>,
   },
 ]);
 
