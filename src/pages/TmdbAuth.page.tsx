@@ -7,9 +7,9 @@ import { useMutation } from '@tanstack/react-query';
 import { TbCheck } from 'react-icons/tb';
 import useMyLocalStorage from '@/hooks/common/useMyLocalStorage';
 import tmdbServices from '@/services/tmdbServices';
-import useUserStore from '@/setup/zustand/user.store';
+import useUserStore from '@/setup/store/user.store';
 import useRedirection from '@/hooks/common/useRedirection';
-import useAppStore from '@/setup/zustand/app.store';
+import useAppStore from '@/setup/store/app.store';
 import { fetchUserFavoritesAndWatchlist } from '@/utils/api.utils';
 
 const TmdbAuthPage = () => {

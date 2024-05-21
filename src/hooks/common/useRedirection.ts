@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useMyLocalStorage from './useMyLocalStorage';
 import { TNavigationPagesKey, TPageWiseNavigationActions } from '@/types/data.types';
-import useUserStore from '@/setup/zustand/user.store';
+import useUserStore from '@/setup/store/user.store';
 
 // DONE: add support for redirect and action resume
 const useRedirection = <Page extends TNavigationPagesKey>() => {

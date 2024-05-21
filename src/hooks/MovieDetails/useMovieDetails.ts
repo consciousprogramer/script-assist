@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { TPageWiseNavigationActions } from '@/types/data.types';
 import useRedirection from '../common/useRedirection';
 import tmdbServices from '@/services/tmdbServices';
-import useAppStore from '@/setup/zustand/app.store';
+import useAppStore from '@/setup/store/app.store';
 
 const useMovieDetails = ({ movieId }: { movieId: number }) => {
   const { checkSessionOrAuthenticate } = useRedirection<'moviesDetailPage'>();

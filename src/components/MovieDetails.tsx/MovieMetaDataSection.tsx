@@ -4,10 +4,10 @@ import {
   TbBulbFilled,
   TbHeart,
   TbHeartFilled,
-  TbLanguage,
   TbPlaylist,
   TbPlaylistAdd,
   TbStarFilled,
+  TbVolume,
 } from 'react-icons/tb';
 import { TMovieDetailsResponse } from '@/types/tmdbApi.types';
 import { TBadgesRenderingData } from '@/types/ui.types';
@@ -51,7 +51,7 @@ const MovieMetaDataSection = ({
         value: data.original_language,
         props: {
           color: 'gray',
-          leftSection: <TbLanguage />,
+          leftSection: <TbVolume />,
         },
       },
     ],
