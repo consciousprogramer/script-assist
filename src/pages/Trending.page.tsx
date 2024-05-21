@@ -1,10 +1,5 @@
-import React, { Suspense } from 'react';
-import TrendingPageFallback from '@/components/Trending/Trending.fallback';
+import React from 'react';
 import Trending from '@/components/Trending/Trending';
 
-const TrendingPage = () => (
-  <Suspense fallback={<TrendingPageFallback />}>
-    <Trending />
-  </Suspense>
-);
+const TrendingPage = () => <Trending />;
 export default TrendingPage;
