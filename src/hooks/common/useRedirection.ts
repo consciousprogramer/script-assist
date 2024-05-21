@@ -54,8 +54,25 @@ const useRedirection = <Page extends TNavigationPagesKey>() => {
     [navigate, addRedirectUrl, sessionId]
   );
 
+  const autoExecuteAfterRedirectJob = async (
+    actionExecutorMap: Record<TPageWiseNavigationActions[Page], Function>,
+    afterWork: Function
+  ) => {
+    const pageSearchParams = new URLSearchParams(location.search);
+
+    const isPendingRedirect = pageSearchParams.get('isPendingRedirect');
+    if (!isPendingRedirect || isPendingRedirect === 'false') return;
+
+    const action = pageSearchParams.get('action') as TPageWiseNavigationActions[Page];
+
+    await { ...actionExecutorMap, none: () => Promise.resolve() }[action]();
+
+    await afterWork();
+  };
+
   return {
     addRedirectUrl,
+    autoExecuteAfterRedirectJob,
     checkSessionOrAuthenticate,
     checkAndExecutePendingRedirect,
     navigate,

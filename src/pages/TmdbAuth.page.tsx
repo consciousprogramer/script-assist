@@ -5,36 +5,27 @@ import React, { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { TbCheck } from 'react-icons/tb';
-import useMyLocalStorage from '@/hooks/useMyLocalStorage';
+import useMyLocalStorage from '@/hooks/common/useMyLocalStorage';
 import tmdbServices from '@/services/tmdbServices';
 import useUserStore from '@/setup/zustand/user.store';
-import useRedirection from '@/hooks/useRedirection';
+import useRedirection from '@/hooks/common/useRedirection';
 import useAppStore from '@/setup/zustand/app.store';
 import { fetchUserFavoritesAndWatchlist } from '@/utils/api.utils';
 
 const TmdbAuthPage = () => {
-  const [searchParams] = useSearchParams();
-
-  const { checkAndExecutePendingRedirect } = useRedirection();
-
-  const tmdbAuthResult = searchParams.get('approved');
-
   const { setSessionId, sessionId } = useUserStore();
+  const { checkAndExecutePendingRedirect } = useRedirection();
   const { loadFavorites, loadWatchlist } = useAppStore();
-
   const { setLocalStorage, clearLocalStorageKey } = useMyLocalStorage();
 
+  const [searchParams] = useSearchParams();
+  const tmdbAuthResult = searchParams.get('approved');
+
   const startTMDBAuthProcess = async () => {
-    // check if already having valid token
     if (sessionId) {
-      return {
-        success: true,
-        message: 'Already authenticated with TMDB',
-        action: 'proceedWithRequest',
-      };
+      return false;
     }
 
-    // fetch a request token
     const { request_token, expires_at, success } =
       await tmdbServices.authentication.getRequestToken();
 
@@ -46,20 +37,14 @@ const TmdbAuthPage = () => {
 
     const authUrl = tmdbServices.constructUrl.tmdbAuthUrl(request_token);
 
-    const redirectUrl = new URL('/auth/tmdb/user', window.location.origin);
-
-    // redirectUrl.searchParams.set('tmdbAuthResult', 'success');
-    // redirectUrl.searchParams.set('request_token', request_token);
-
-    authUrl.searchParams.set('redirect_to', redirectUrl.toString());
+    authUrl.searchParams.set(
+      'redirect_to',
+      new URL('/auth/tmdb/user', window.location.origin).toString()
+    );
 
     window.open(authUrl, '_parent');
 
-    return {
-      success: true,
-      message: 'Initiated authentication with TMDB',
-      action: 'waitForAuthResponse',
-    };
+    return true;
   };
 
   const { mutateAsync: createSession } = useMutation({
@@ -70,37 +55,32 @@ const TmdbAuthPage = () => {
   useEffect(() => {
     (async () => {
       if (!tmdbAuthResult) {
-        // this is the stage before TMDB auth, initiate auth
-        const { action, message, success } = await startTMDBAuthProcess();
-        console.info(`Action: ${action}, Message: ${message}, Success: ${success}`);
+        await startTMDBAuthProcess();
       } else if (tmdbAuthResult === 'true') {
-        // TMDB auth successful, start session setup
         const requestToken = searchParams.get('request_token');
+
         if (!requestToken) {
           throw new Error('Request token not found, after tmdb redirect.');
         }
 
         const response = await createSession(requestToken);
 
-        if (!response) {
+        const { success, session_id } = response;
+
+        if (!success) {
           throw new Error('TMDB Session creation failed, please retry');
         }
 
-        const { success, session_id } = response;
         setSessionId(session_id);
-        if (success) {
-          try {
-            const { allFavoriteIds, allWatchlistIds } = await fetchUserFavoritesAndWatchlist();
 
-            loadFavorites(allFavoriteIds);
-            loadWatchlist(allWatchlistIds);
-          } catch (error) {
-            console.error(error);
-          }
+        // Can offload it to web workers/service and put under ground
+        const { allFavoriteIds, allWatchlistIds } = await fetchUserFavoritesAndWatchlist();
 
-          clearLocalStorageKey('requestToken');
-          checkAndExecutePendingRedirect();
-        }
+        loadFavorites(allFavoriteIds);
+        loadWatchlist(allWatchlistIds);
+
+        clearLocalStorageKey('requestToken');
+        checkAndExecutePendingRedirect();
       }
     })();
   }, []);

@@ -5,7 +5,7 @@ import TrendingPage from '../../pages/Trending.page';
 import MovieDetails from '../../components/MovieDetails.tsx/MovieDetails';
 import TmdbAuthPage from '@/pages/TmdbAuth.page';
 import useAppStore from '../zustand/app.store';
-import useMyLocalStorage from '@/hooks/useMyLocalStorage';
+import useMyLocalStorage from '@/hooks/common/useMyLocalStorage';
 
 const router = createBrowserRouter([
   {
