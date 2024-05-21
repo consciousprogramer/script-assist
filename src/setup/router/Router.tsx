@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useRef } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Text } from '@mantine/core';
 import TrendingPage from '../../pages/Trending.page';
 import MovieDetails from '../../components/MovieDetails.tsx/MovieDetails';
 import TmdbAuthPage from '@/pages/TmdbAuth.page';
@@ -11,33 +10,39 @@ import useMyLocalStorage from '@/hooks/common/useMyLocalStorage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/movies/trending" replace />,
-  },
-  {
-    path: '/movies/',
     children: [
       {
-        path: 'trending',
-        element: <TrendingPage />,
+        path: '',
+        element: <Navigate to="/movies/trending" />,
       },
       {
-        path: ':movieId',
-        element: <MovieDetails />,
+        path: 'movies',
+        children: [
+          {
+            path: 'trending',
+            element: <TrendingPage />,
+          },
+          {
+            path: ':movieId',
+            element: <MovieDetails />,
+          },
+        ],
       },
-    ],
-  },
-  {
-    path: '/auth/tmdb/',
-    children: [
       {
-        path: 'user',
-        element: <TmdbAuthPage />,
+        path: 'auth',
+        children: [
+          {
+            path: 'tmdb',
+            children: [
+              {
+                path: 'user',
+                element: <TmdbAuthPage />,
+              },
+            ],
+          },
+        ],
       },
     ],
-  },
-  {
-    path: '*',
-    element: <Text component="h2">Page Not Found!</Text>,
   },
 ]);
 
