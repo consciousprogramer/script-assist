@@ -35,7 +35,9 @@ const useRedirection = <Page extends TNavigationPagesKey>() => {
     if (navigationData) {
       const { path } = navigationData.navigateTo;
       clearLocalStorageKey('navigation');
-      navigate(path);
+      navigate(path, {
+        replace: true,
+      });
     }
   }, [navigate, clearLocalStorageKey, getLocalStorage]);
 

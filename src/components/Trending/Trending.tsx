@@ -70,7 +70,7 @@ const Trending = () => {
         </Table.Thead>
         <Table.Tbody>
           {data && !isLoading ? (
-            <TableDataRows movies={data.results} />
+            <TableDataRows movies={data.results} page={page} />
           ) : (
             <TableRowLoading count={tableHeaders.length} />
           )}

@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { TrendingMovie } from '@/types/tmdbApi.types';
 import { tmdbImagePathConstructors } from '@/utils/api.utils';
 
-const TableDataRows = ({ movies }: { movies: TrendingMovie[] }) =>
+const TableDataRows = ({ movies, page }: { movies: TrendingMovie[]; page: number }) =>
   movies.map((movie) => (
     <Table.Tr key={movie.id}>
       <Table.Td>
@@ -18,7 +18,11 @@ const TableDataRows = ({ movies }: { movies: TrendingMovie[] }) =>
         />
       </Table.Td>
       <Table.Td>
-        <Link to={`../${movie.id}`} relative="path" className="hover:underline text-lg font-roboto">
+        <Link
+          to={`../${movie.id}?${new URLSearchParams({ prevTrendingPage: String(page) }).toString()}`}
+          relative="path"
+          className="hover:underline text-lg font-roboto"
+        >
           {movie.title}
         </Link>
       </Table.Td>

@@ -16,7 +16,7 @@ import MovieDetailsBannerSection from './MovieDetailsBannerSection';
 import MovieMetaDataSection from './MovieMetaDataSection';
 
 const MovieDetails = () => {
-  const setSearchParams = useSearchParams()[1];
+  const [searchParams, setSearchParams] = useSearchParams();
   const { movieId: mId } = useParams<{ movieId: string }>();
 
   if (!mId) {
@@ -105,7 +105,14 @@ const MovieDetails = () => {
                   style={transitionStyles}
                   color="gray"
                   leftSection={<TbArrowLeft />}
-                  onClick={() => navigate(-1)}
+                  onClick={() => {
+                    const prevTrendingPage = searchParams.get('prevTrendingPage');
+                    if (prevTrendingPage) {
+                      navigate(`../trending?page=${prevTrendingPage}`);
+                    } else {
+                      navigate('../trending');
+                    }
+                  }}
                 >
                   Back
                 </Button>
