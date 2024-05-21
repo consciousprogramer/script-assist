@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useRef } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Text } from '@mantine/core';
 import TrendingPage from '../../pages/Trending.page';
 import MovieDetails from '../../components/MovieDetails.tsx/MovieDetails';
 import TmdbAuthPage from '@/pages/TmdbAuth.page';
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Text component="h2">Page Not Exist!</Text>,
   },
 ]);
 
